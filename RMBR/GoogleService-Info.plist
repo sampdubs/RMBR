@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>577318679051-or79ob9j0tpqrkb76qhlnb6aj1nno42e.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.577318679051-or79ob9j0tpqrkb76qhlnb6aj1nno42e</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCHKL45LN5kD7JGs6FsyJtieZLI4-ituQc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>577318679051</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.congappchallenge.RMBR</string>
+	<key>PROJECT_ID</key>
+	<string>rmbr-e6706</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rmbr-e6706.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:577318679051:ios:97b454bb447b453d9b0d0e</string>
+	<key>DATABASE_URL</key>
+	<string>https://rmbr-e6706.firebaseio.com</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-9472819037436786~8356149663</string>
+</dict>
+</plist>
