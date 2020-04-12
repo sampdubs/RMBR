@@ -160,7 +160,7 @@ struct Memories: View {
                                                 }
                                             }
                                             do {
-                                                try FileManager.default.removeItem(at: getDocumentsDirectory().appendingPathComponent(id))
+                                                try FileManager.default.removeItem(at: getDocumentsDirectory().appendingPathComponent("\(id).png"))
                                             } catch {
                                                 print("error deleting file")
                                             }
