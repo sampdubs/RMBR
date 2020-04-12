@@ -23,7 +23,7 @@ struct ShowToDo: View {
         if (self.text.isEmpty) {
             return
         }
-        db.document("users/user-id/todos/\(self.toDo!.id)").setData(["text": self.text], merge: true)
+        db.document("users/\(userID)/todos/\(self.toDo!.id)").setData(["text": self.text], merge: true)
         self.toDo!.text = self.text
     }
     
@@ -31,7 +31,7 @@ struct ShowToDo: View {
         NavigationView {
             VStack {
                 Button (action: {
-                    self.db.document("users/user-id/todos/\(self.toDo!.id)").setData(["done": !self.toDo!.done], merge: true)
+                    self.db.document("users/\(userID)/todos/\(self.toDo!.id)").setData(["done": !self.toDo!.done], merge: true)
                     self.update.toggle()
                 }) {
                     Image(systemName: toDo!.done ? "checkmark.square" : "square")

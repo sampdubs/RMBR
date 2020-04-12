@@ -10,6 +10,7 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseStorage
 
 public class Memory: Identifiable {
     public var text: String
@@ -26,19 +27,37 @@ public class Memory: Identifiable {
         let imageStrings = firestoreData["attachments"] as? [String] ?? []
         self.attachments = []
         for im in imageStrings {
-            if let data = Data(base64Encoded: im, options: .ignoreUnknownCharacters) {
-                self.attachments.append(UIImage(data: data) ?? UIImage())
+            if im.prefix(7) == "pending" {
+                self.attachments.append(UIImage(named: "headshot")!)
+            } else {
+                let fileURL = getDocumentsDirectory().appendingPathComponent("\(im).png")
+                let fileManager = FileManager.default
+                if fileManager.fileExists(atPath: fileURL.path) {
+                    if let loadedIm = UIImage(contentsOfFile: fileURL.path) {
+                        self.attachments.append(loadedIm)
+                    } else {
+                        print("error loading image")
+                    }
+                } else {
+                    print("reverting to storage load")
+                    let index = self.attachments.count
+                    self.attachments.append(UIImage(named: "headshot")!)
+                    let storageRef = Storage.storage().reference(withPath: "images/\(im)")
+                    storageRef.getData(maxSize: 1024 * 1024 * 1024) { (data, error) -> Void in
+                        if let error = error {
+                            print("error getting data ", error)
+                        } else {
+                            let pic = UIImage(data: data!)
+                            do {
+                                try data!.write(to: fileURL)
+                            } catch {
+                                print("error writing image to file")
+                            }
+                            self.attachments[index] = pic!
+                        }
+                    }
+                }
             }
         }
-    }
-    
-    func imageStrings() -> [String] {
-        var output: [String] = []
-        for im in self.attachments {
-            if let str = im.toString() {
-                output.append(str)
-            }
-        }
-        return output
     }
 }

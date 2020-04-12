@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 
+let userID = UIDevice.current.identifierForVendor?.uuidString ?? ""
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

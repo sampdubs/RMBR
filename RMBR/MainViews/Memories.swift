@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 struct Memories: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme // Light or dark mode?
@@ -22,6 +23,7 @@ struct Memories: View {
     @Binding var showSetting: Bool
 
     let db = Firestore.firestore()
+    let storage = Storage.storage()
 
     fileprivate func memoryListElement(_ memory: Memory) -> some View {
         return //                         When the memory is clicked, grab its info
@@ -53,6 +55,46 @@ struct Memories: View {
                 }
         }
     }
+    
+    fileprivate func saveImages(_ ims: [UIImage], _ memID: String) {
+        let storageRef = storage.reference()
+        var urls: [String] = []
+        for i in 0..<ims.count {
+            let name = UUID().uuidString
+            let data = ims[i].rotated()!.pngData()!
+            let filename = getDocumentsDirectory().appendingPathComponent("\(name).png")
+            do {
+                try data.write(to: filename)
+            } catch {
+                print("file write failed")
+            }
+            let imageRef = storageRef.child("images/\(name)")
+            imageRef.putData(data)
+            urls.append(name)
+        }
+        self.addImageLinks(urls, memID)
+    }
+    
+    fileprivate func addImageLinks(_ urls: [String], _ memID: String) {
+        let docRef = db.document("users/\(userID)/memories/\(memID)")
+        var currentIms: [String] = []
+        docRef.getDocument { (document, err) in
+            if let document = document, document.exists {
+                currentIms = document.data()!["attachments"] as? [String] ?? []
+                for i in 0..<urls.count {
+                    for j in 0..<currentIms.count {
+                        if currentIms[j].prefix(7) == "pending" && Int(currentIms[j].filter { "0"..."9" ~= $0 }) == i {
+                            currentIms[j] = urls[i]
+                            break
+                        }
+                    }
+                    docRef.updateData(["attachments": currentIms])
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
 
     fileprivate func saveMemSheet() {
         if (self.title.isEmpty && self.text.isEmpty && self.images.isEmpty) {
@@ -60,10 +102,8 @@ struct Memories: View {
         }
 
         var imArray: [String] = []
-        for image in self.images {
-            if let str = image.toString() {
-                imArray.append(str)
-            }
+        for i in 0..<self.images.count {
+            imArray.append("pending\(i)")
         }
 
         let toSave: [String: Any] = [
@@ -73,7 +113,8 @@ struct Memories: View {
             "attachments": imArray
         ]
 
-        db.collection("users/user-id/memories").addDocument(data: toSave)
+        let docRef = db.collection("users/\(userID)/memories").addDocument(data: toSave)
+        self.saveImages(self.images, docRef.documentID)
     }
 
     var body: some View {
@@ -103,9 +144,31 @@ struct Memories: View {
                     }.onDelete { IndexSet in
                         //                        make sure there are more than 0 memories
                         guard 0 < self.memories.count else { return }
-                        self.db.document("users/user-id/memories/\(self.memories[IndexSet.first!].id)").delete() { err in
-                            if let err = err {
-                                print("Error removing document: \(err)")
+                        let docRef = self.db.document("users/\(userID)/memories/\(self.memories[IndexSet.first!].id)")
+                        var imageIDs: [String] = []
+                        docRef.getDocument { (document, err) in
+                            if let document = document, document.exists {
+                                imageIDs = document.data()!["attachments"] as? [String] ?? []
+                                docRef.delete() { err in
+                                    if let err = err {
+                                        print("Error removing document: \(err)")
+                                    } else {
+                                        for id in imageIDs {
+                                            self.storage.reference(withPath: "images/\(id)").delete { err in
+                                                if let err = err {
+                                                    print("error deleting from storage: \(err)")
+                                                }
+                                            }
+                                            do {
+                                                try FileManager.default.removeItem(at: getDocumentsDirectory().appendingPathComponent(id))
+                                            } catch {
+                                                print("error deleting file")
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                print("doc does not exist")
                             }
                         }
                     }
@@ -138,7 +201,7 @@ struct Memories: View {
             }
         }
         .onAppear {
-            self.db.collection("users/user-id/memories")
+            self.db.collection("users/\(userID)/memories")
                 .addSnapshotListener { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")

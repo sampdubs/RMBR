@@ -124,7 +124,7 @@ struct Tasks: View {
             "text": self.text
         ]
 
-        db.collection("users/user-id/tasks").addDocument(data: toSave)
+        db.collection("users/\(userID)/tasks").addDocument(data: toSave)
     }
     
     var body: some View {
@@ -157,7 +157,7 @@ struct Tasks: View {
                         let toDelete = self.tasks[IndexSet.first!]
                         //                        After deleting the task object, also delete the system notification corresponding to it
                         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: toDelete.identifier.map { $0.uuidString })
-                        self.db.document("users/user-id/tasks/\(toDelete.id)").delete() { err in
+                        self.db.document("users/\(userID)/tasks/\(toDelete.id)").delete() { err in
                             if let err = err {
                                 print("Error removing document: \(err)")
                             }
@@ -168,7 +168,7 @@ struct Tasks: View {
                             let batch = self.db.batch()
                             for task in self.tasks {
                                 if taskPassed(task) {
-                                    let doc = self.db.document("users/user-id/tasks/\(task.id)")
+                                    let doc = self.db.document("users/\(userID)/tasks/\(task.id)")
                                     batch.deleteDocument(doc)
                                 }
                             }
@@ -225,7 +225,7 @@ struct Tasks: View {
             }
         }
         .onAppear {
-            self.db.collection("users/user-id/tasks")
+            self.db.collection("users/\(userID)/tasks")
                 .addSnapshotListener { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")

@@ -72,75 +72,6 @@ struct DatePicker: UIViewControllerRepresentable {
     }
 }
 
-class RepeatPicker: ObservableObject {
-    @Published var picker = RepeatPickerView()
-    var repeats: Int {
-        get {
-            return picker.picker.selected
-        }
-        set {
-            picker.picker.pickerView.selectRow(newValue, inComponent: 0, animated: false)
-        }
-    }
-}
-
-struct RepeatPickerView: UIViewControllerRepresentable {
-    typealias UIViewControllerType = MyPicker
-    
-    let picker = MyPicker()
-    func makeUIViewController(context: UIViewControllerRepresentableContext<RepeatPickerView>) -> MyPicker {
-        return picker
-    }
-    func updateUIViewController(_ uiViewController: RepeatPickerView.UIViewControllerType, context: UIViewControllerRepresentableContext<RepeatPickerView>) {
-    }
-}
-
-class MyPicker: UIViewController {
-    private let dataSource = ["Never", "Daily", "Weekly", "Monthly", "Yearly"]
-    var pickerView = UIPickerView()
-    var selected = 0
-    
-    override func loadView() {
-        super.loadView()
-        self.view.addSubview(pickerView)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        pickerView.dataSource = self
-        pickerView.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-}
-
-extension MyPicker: UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dataSource.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        selected = row
-        return dataSource[row]
-    }
-}
-
-class MOCContainer: ObservableObject {
-    var moc: NSManagedObjectContext
-    init(_ passedMoc: NSManagedObjectContext) {
-        moc = passedMoc
-    }
-}
-
 func attachmentsText(_ x: Int) -> String {
     return "\(x) attachment" + (x == 1 ? "" : "s")
 }
@@ -244,17 +175,6 @@ extension DateComponents: Identifiable {
     public var id: Double { Calendar.current.date(from: self)?.timeIntervalSince1970 ?? 0 }
 }
 
-extension UIImage {
-    func toString() -> String? {
-        let data: Data? = self.pngData()
-        return data?.base64EncodedString(options: .endLineWithLineFeed)
-    }
-}
-
-class DatesContainer: ObservableObject {
-    @Published var dates: [Date] = []
-}
-
 func dateToComponents(_ d: Date, _ repeats: Int) -> DateComponents {
     var dateComponent = DateComponents()
     let calendar = Calendar.current
@@ -291,14 +211,32 @@ func dateToComponents(_ d: Date, _ repeats: Int) -> DateComponents {
     return dateComponent
 }
 
+func getDocumentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    return paths[0]
+}
+
+extension UIImage {
+    func rotated() -> UIImage? {
+        if (self.imageOrientation == UIImage.Orientation.up ) {
+            return self
+        }
+        UIGraphicsBeginImageContext(self.size)
+        self.draw(in: CGRect(origin: CGPoint.zero, size: self.size))
+        let copy = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return copy
+    }
+}
+
 struct AdBanner : UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<AdBanner>) -> GADBannerView {
         // real: ca-app-pub-9472819037436786/3598098269
         // test: ca-app-pub-3940256099942544/6300978111
         
         let banner = GADBannerView(adSize: kGADAdSizeBanner)
-//        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111"      // test
-        banner.adUnitID = "ca-app-pub-9472819037436786/3598098269"    // real
+        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111"      // test
+//        banner.adUnitID = "ca-app-pub-9472819037436786/3598098269"    // real
         banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
         banner.load(GADRequest())
         return banner

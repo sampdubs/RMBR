@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4318AEA243FBFC0001C14D9 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4318AE9243FBFC0001C14D9 /* iOSDevCenters+GIF.swift */; };
 		C4348F7D233ABAEF000EF3F2 /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4348F7C233ABAEF000EF3F2 /* Tasks.swift */; };
 		C4348F83233AD81A000EF3F2 /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4348F82233AD81A000EF3F2 /* AddTask.swift */; };
 		C4348F85233AD821000EF3F2 /* ShowTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4348F84233AD821000EF3F2 /* ShowTask.swift */; };
@@ -40,6 +41,7 @@
 		2E49598C423CC414CD8C3C90 /* Pods-RMBR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMBR.release.xcconfig"; path = "Target Support Files/Pods-RMBR/Pods-RMBR.release.xcconfig"; sourceTree = "<group>"; };
 		6DDC2E3D926EECAC4C7E1B59 /* Pods-RMBR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMBR.debug.xcconfig"; path = "Target Support Files/Pods-RMBR/Pods-RMBR.debug.xcconfig"; sourceTree = "<group>"; };
 		C403C2A42367DDD00010C405 /* RMBR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RMBR.entitlements; sourceTree = "<group>"; };
+		C4318AE9243FBFC0001C14D9 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		C4348F7C233ABAEF000EF3F2 /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		C4348F82233AD81A000EF3F2 /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
 		C4348F84233AD821000EF3F2 /* ShowTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTask.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				C4C3EBE8231C936F002E1733 /* PhotoCaptureView.swift */,
 				C4C3EBEA231C93C0002E1733 /* ImagePicker.swift */,
 				C4F63408242D70EA00DA8421 /* MultilineTextField.swift */,
+				C4318AE9243FBFC0001C14D9 /* iOSDevCenters+GIF.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				C4C3EBE9231C936F002E1733 /* PhotoCaptureView.swift in Sources */,
 				C4C3EBB12319FEFF002E1733 /* Memory.swift in Sources */,
 				C4C3EBEB231C93C0002E1733 /* ImagePicker.swift in Sources */,
+				C4318AEA243FBFC0001C14D9 /* iOSDevCenters+GIF.swift in Sources */,
 				C4E29908232AF7E600CDC04B /* ToDo.swift in Sources */,
 				C4C3EB9B2319FC52002E1733 /* ContentView.swift in Sources */,
 				C4348F7D233ABAEF000EF3F2 /* Tasks.swift in Sources */,

@@ -88,7 +88,7 @@ struct ShowTask: View {
             "text": self.text
         ]
 
-        db.document("users/user-id/tasks/\(self.task!.id)").setData(toSave)
+        db.document("users/\(userID)/tasks/\(self.task!.id)").setData(toSave)
     }
     
     var body: some View {

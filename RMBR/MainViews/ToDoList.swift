@@ -33,13 +33,13 @@ struct ToDoList: View {
             "done": false
         ]
         
-        db.collection("users/user-id/todos").addDocument(data: toSave)
+        db.collection("users/\(userID)/todos").addDocument(data: toSave)
     }
     
     fileprivate func assignOrder() {
         let batch = db.batch()
         for i in 0..<self.todos.count {
-            let ref = db.document("users/user-id/todos/\(self.todos[i].id)")
+            let ref = db.document("users/\(userID)/todos/\(self.todos[i].id)")
             batch.updateData(["order": i], forDocument: ref)
         }
         batch.commit() { err in
@@ -83,7 +83,7 @@ struct ToDoList: View {
                                 .frame(width: 32, height: 32)
                                 .foregroundColor(todo.done ? .green : self.colorScheme == .light ? .black : .white)
                                 .gesture(TapGesture().onEnded(){
-                                    self.db.document("users/user-id/todos/\(todo.id)").setData(["done": !todo.done], merge: true)
+                                    self.db.document("users/\(userID)/todos/\(todo.id)").setData(["done": !todo.done], merge: true)
                                     self.update.toggle()
                                     self.showSheet = false
                                 })
@@ -102,7 +102,7 @@ struct ToDoList: View {
                     }
                     .onDelete { IndexSet in
                         guard 0 < self.todos.count else { return }
-                        self.db.document("users/user-id/todos/\(self.todos[IndexSet.first!].id)").delete() { err in
+                        self.db.document("users/\(userID)/todos/\(self.todos[IndexSet.first!].id)").delete() { err in
                             if let err = err {
                                 print("Error removing document: \(err)")
                             }
@@ -115,7 +115,7 @@ struct ToDoList: View {
                             let batch = self.db.batch()
                             for todo in self.todos {
                                 if todo.done {
-                                    let doc = self.db.document("users/user-id/todos/\(todo.id)")
+                                    let doc = self.db.document("users/\(userID)/todos/\(todo.id)")
                                     batch.deleteDocument(doc)
                                 }
                             }
@@ -158,7 +158,7 @@ struct ToDoList: View {
             
         }
         .onAppear {
-            self.db.collection("users/user-id/todos")
+            self.db.collection("users/\(userID)/todos")
                 .addSnapshotListener { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")
