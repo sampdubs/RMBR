@@ -186,12 +186,7 @@ struct Tasks: View {
                 }
             }
             .navigationBarTitle("Tasks")
-            .navigationBarItems(leading:
-                Button(action: {
-                    self.showSetting = true
-                }){
-                    Image(systemName: "line.horizontal.3")
-            }, trailing: EditButton())
+            .navigationBarItems(leading: SettingsButton(showSetting: self.$showSetting), trailing: EditButton())
             .sheet(isPresented: self.$showSheet, onDismiss: {
                 if self.sheetType == "add" {
                     self.saveTaskSheet()

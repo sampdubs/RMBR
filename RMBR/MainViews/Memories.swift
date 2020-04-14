@@ -61,7 +61,7 @@ struct Memories: View {
         var urls: [String] = []
         for i in 0..<ims.count {
             let name = UUID().uuidString
-            let data = ims[i].rotated()!.pngData()!
+            let data = ims[i].getData()
             let filename = getDocumentsDirectory().appendingPathComponent("\(name).png")
             do {
                 try data.write(to: filename)
@@ -162,7 +162,7 @@ struct Memories: View {
                                             do {
                                                 try FileManager.default.removeItem(at: getDocumentsDirectory().appendingPathComponent("\(id).png"))
                                             } catch {
-                                                print("error deleting file")
+                                                print("error deleting file: \(error)")
                                             }
                                         }
                                     }
@@ -175,12 +175,7 @@ struct Memories: View {
                 }
             }
             .navigationBarTitle("Memories")
-            .navigationBarItems(leading:
-                Button(action: {
-                    self.showSetting = true
-                }){
-                    Image(systemName: "line.horizontal.3")
-            }, trailing: EditButton())
+            .navigationBarItems(leading: SettingsButton(showSetting: self.$showSetting), trailing: EditButton())
                 .sheet(isPresented: self.$showSheet, onDismiss: {
                     //                When a sheet for adding a memory is swiped down, save it
                     if self.sheetType == "add" {

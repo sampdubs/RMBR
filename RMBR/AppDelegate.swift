@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        UserDefaults.standard.register(defaults: [
+            "compressionQuality": 0.7,
+            "jpg": true
+        ])
         return true
     }
 

@@ -28,7 +28,7 @@ public struct ShowMemory: View {
         var urls: [String] = []
         for i in 0..<ims.count {
             let name = UUID().uuidString
-            let data = ims[i].rotated()!.pngData()!
+            let data = ims[i].getData()
             let filename = getDocumentsDirectory().appendingPathComponent("\(name).png")
             do {
                 try data.write(to: filename)

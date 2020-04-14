@@ -44,6 +44,20 @@ extension UITextView {
     }
 }
 
+struct SettingsButton: View {
+    @Binding var showSetting: Bool
+    
+    var body: some View {
+        Button(action: {
+            self.showSetting = true
+        }){
+            Image(systemName: "line.horizontal.3")
+        }
+        .frame(width: 40, height: 40, alignment: .center)
+        .contentShape(Rectangle())
+    }
+}
+
 class DatePickerContainer: ObservableObject {
     @Published var picker = DatePicker()
     var date: Date {
@@ -227,6 +241,22 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return copy
     }
+    
+    func resized(withPercentage percentage: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    func getData() -> Data {
+        let comp = CGFloat(UserDefaults.standard.float(forKey: "compressionQuality"))
+        if UserDefaults.standard.bool(forKey: "jpg") {
+            return self.rotated()!.jpegData(compressionQuality: comp)!
+        }
+        return self.rotated()!.resized(withPercentage: comp)!.pngData()!
+    }
 }
 
 struct AdBanner : UIViewRepresentable {
@@ -236,7 +266,7 @@ struct AdBanner : UIViewRepresentable {
         
         let banner = GADBannerView(adSize: kGADAdSizeBanner)
         banner.adUnitID = "ca-app-pub-3940256099942544/6300978111"      // test
-//        banner.adUnitID = "ca-app-pub-9472819037436786/3598098269"    // real
+        //        banner.adUnitID = "ca-app-pub-9472819037436786/3598098269"    // real
         banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
         banner.load(GADRequest())
         return banner
