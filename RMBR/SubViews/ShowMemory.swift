@@ -87,16 +87,26 @@ public struct ShowMemory: View {
         self.saveImages(self.images, self.memory!.id)
     }
     
+    fileprivate func imageElement(_ pic: UIImage) -> some View {
+        return VStack {
+            if pic === loading {
+                ActivityIndicator(style: .large)
+            } else {
+                Image(uiImage: pic)
+                    .resizable()
+                    .aspectRatio(pic.size.width/pic.size.height, contentMode: .fit)
+                    .cornerRadius(10)
+            }
+        }
+    }
+    
     public var body: some View {
         NavigationView {
             VStack {
                 Text(self.memory!.text)
                 List {
-                    ForEach(0..<(self.memory!.attachments).count, id: \.id) { i in
-                        Image(uiImage: self.memory!.attachments[i])
-                            .resizable()
-                            .aspectRatio(self.memory!.attachments[i].size.width/self.memory!.attachments[i].size.height, contentMode: .fit)
-                            .cornerRadius(10)
+                    ForEach(self.memory!.attachments, id: \.self) { pic in
+                        self.imageElement(pic)
                     }
                 }
                 Text(String(update))

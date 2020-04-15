@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 let userID = UIDevice.current.identifierForVendor?.uuidString ?? ""
+let loading = UIImage(named: "headshot")!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
