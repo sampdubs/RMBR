@@ -11,7 +11,6 @@ import Firebase
 
 struct Tasks: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @Environment(\.editMode) var editing
     
     @State private var tasks: [Task] = []
     @State private var showSheet = false

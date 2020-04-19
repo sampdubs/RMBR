@@ -124,6 +124,11 @@ public struct ShowMemory: View {
 
 struct ShowMemory_Previews: PreviewProvider {
     static var previews: some View {
-        ShowMemory(memory: .constant(nil), title: .constant("title"), text: .constant("text"), images: .constant([]))
+        ShowMemory(memory: .constant(Memory("id", [
+            "title": "title",
+            "text": "text",
+            "date": Timestamp(date: Date()),
+            "attachments": []
+        ])), title: .constant("title"), text: .constant("text"), images: .constant([]))
     }
 }

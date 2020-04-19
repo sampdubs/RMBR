@@ -18,6 +18,7 @@ struct ShowToDo: View {
     @State private var update = false
     
     let db = Firestore.firestore()
+    var subList: String
     
     fileprivate func saveTodoSheet() {
         if (self.text.isEmpty) {
@@ -31,7 +32,8 @@ struct ShowToDo: View {
         NavigationView {
             VStack {
                 Button (action: {
-                    self.db.document("users/\(userID)/todos/\(self.toDo!.id)").setData(["done": !self.toDo!.done], merge: true)
+                    self.toDo!.done.toggle()
+                    self.db.document("users/\(userID)/todos/sublists/\(self.subList)/\(self.toDo!.id)").setData(["done": self.toDo!.done], merge: true)
                     self.update.toggle()
                 }) {
                     Image(systemName: toDo!.done ? "checkmark.square" : "square")
@@ -55,6 +57,6 @@ struct ShowToDo: View {
 
 struct ShowToDo_Previews: PreviewProvider {
     static var previews: some View {
-        ShowToDo(text: .constant("Preview"), toDo: .constant(nil))
+        ShowToDo(text: .constant("Preview"), toDo: .constant(nil), subList: "Main List")
     }
 }

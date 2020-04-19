@@ -29,7 +29,7 @@ struct ContentView: View {
                             Image(systemName: "alarm.fill")
                             Text("Tasks")
                     }
-                    ToDoList(showSetting: self.$showSetting)
+                    ToDoMain(showSetting: self.$showSetting)
                         .tabItem {
                             Image(systemName: "checkmark.seal.fill")
                             Text("To Do")

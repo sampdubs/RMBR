@@ -23,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         UserDefaults.standard.register(defaults: [
             "compressionQuality": 0.7,
-            "jpg": true
+            "jpg": true,
+            "todoLists": []
         ])
         return true
     }

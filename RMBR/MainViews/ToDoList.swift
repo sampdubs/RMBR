@@ -19,6 +19,7 @@ struct ToDoList: View {
     @State private var text: String = ""
     @State var update = true
     @Binding var showSetting: Bool
+    var subList: String
     
     let db = Firestore.firestore()
     
@@ -33,13 +34,13 @@ struct ToDoList: View {
             "done": false
         ]
         
-        db.collection("users/\(userID)/todos").addDocument(data: toSave)
+        db.collection("users/\(userID)/todos/sublists/\(self.subList)").addDocument(data: toSave)
     }
     
     fileprivate func assignOrder() {
         let batch = db.batch()
         for i in 0..<self.todos.count {
-            let ref = db.document("users/\(userID)/todos/\(self.todos[i].id)")
+            let ref = db.document("users/\(userID)/todos/sublists/\(self.subList)/\(self.todos[i].id)")
             batch.updateData(["order": i], forDocument: ref)
         }
         batch.commit() { err in
@@ -55,112 +56,110 @@ struct ToDoList: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack() {
-                    Text("Add New To Do ")
-                        .font(.headline)
+        VStack {
+            HStack() {
+                Text("Add New To Do ")
+                    .font(.headline)
+                Button(action: {
+                    self.assignOrder()
+                    self.sheetType = "add"
+                    self.showSheet.toggle()
+                }) {
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundColor(.green)
+                        .imageScale(.large)
+                }
+            }
+            if self.todos.count == 1 {
+                Text("1 thing to do")
+            } else {
+                Text(String(self.todos.count) + " things to do")
+            }
+            List {
+                ForEach(todos, id: \.id) { todo in
+                    HStack {
+                        Image(systemName: todo.done ? "checkmark.square" : "square")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundColor(todo.done ? .green : self.colorScheme == .light ? .black : .white)
+                            .gesture(TapGesture().onEnded(){
+                                self.db.document("users/\(userID)/todos/sublists/\(self.subList)/\(todo.id)").setData(["done": !todo.done], merge: true)
+                                self.update.toggle()
+                                self.showSheet = false
+                            })
+                        Text(todo.text)
+                            .frame(height: 35)
+                            .foregroundColor(todo.done ? .gray : self.colorScheme == .light ? .black : .white)
+                            .gesture(TapGesture().onEnded(){
+                                self.text = todo.text
+                                self.showSheet = true
+                                self.sheetType = "show"
+                                self.showingToDo = todo
+                                self.assignOrder()
+                                self.update.toggle()
+                            })
+                    }
+                }
+                .onDelete { IndexSet in
+                    guard 0 < self.todos.count else { return }
+                    self.db.document("users/\(userID)/todos/sublists/\(self.subList)/\(self.todos[IndexSet.first!].id)").delete() { err in
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        }
+                    }
+                    self.update.toggle()
+                }
+                .onMove(perform: move)
+                if self.todos.count > 0 && self.todos.last!.done {
                     Button(action: {
-                        self.assignOrder()
-                        self.sheetType = "add"
-                        self.showSheet.toggle()
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.green)
-                            .imageScale(.large)
-                    }
-                }
-                if self.todos.count == 1 {
-                    Text("1 thing to do")
-                } else {
-                    Text(String(self.todos.count) + " things to do")
-                }
-                List {
-                    ForEach(todos, id: \.id) { todo in
-                        HStack {
-                            Image(systemName: todo.done ? "checkmark.square" : "square")
-                                .resizable()
-                                .frame(width: 32, height: 32)
-                                .foregroundColor(todo.done ? .green : self.colorScheme == .light ? .black : .white)
-                                .gesture(TapGesture().onEnded(){
-                                    self.db.document("users/\(userID)/todos/\(todo.id)").setData(["done": !todo.done], merge: true)
-                                    self.update.toggle()
-                                    self.showSheet = false
-                                })
-                            Text(todo.text)
-                                .frame(height: 35)
-                                .foregroundColor(todo.done ? .gray : self.colorScheme == .light ? .black : .white)
-                                .gesture(TapGesture().onEnded(){
-                                    self.text = todo.text
-                                    self.showSheet = true
-                                    self.sheetType = "show"
-                                    self.showingToDo = todo
-                                    self.assignOrder()
-                                    self.update.toggle()
-                                })
+                        let batch = self.db.batch()
+                        for todo in self.todos {
+                            if todo.done {
+                                let doc = self.db.document("users/\(userID)/todos/sublists/\(self.subList)/\(todo.id)")
+                                batch.deleteDocument(doc)
+                            }
                         }
-                    }
-                    .onDelete { IndexSet in
-                        guard 0 < self.todos.count else { return }
-                        self.db.document("users/\(userID)/todos/\(self.todos[IndexSet.first!].id)").delete() { err in
+                        batch.commit() { err in
                             if let err = err {
-                                print("Error removing document: \(err)")
+                                print("Error writing batch \(err)")
                             }
                         }
-                        self.update.toggle()
+                    }){
+                        Text("Delete completed to-dos")
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+                            .foregroundColor(.red)
                     }
-                    .onMove(perform: move)
-                    if self.todos.count > 0 && self.todos.last!.done {
-                        Button(action: {
-                            let batch = self.db.batch()
-                            for todo in self.todos {
-                                if todo.done {
-                                    let doc = self.db.document("users/\(userID)/todos/\(todo.id)")
-                                    batch.deleteDocument(doc)
-                                }
-                            }
-                            batch.commit() { err in
-                                if let err = err {
-                                    print("Error writing batch \(err)")
-                                }
-                            }
-                        }){
-                            Text("Delete completed to-dos")
-                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-                                .foregroundColor(.red)
-                        }
-                    }
-                    Text(self.update ? "YES" : "NO")
-                        .hidden()
                 }
+                Text(self.update ? "YES" : "NO")
+                    .hidden()
             }
-            .navigationBarTitle("To Do List")
-            .navigationBarItems(leading: SettingsButton(showSetting: self.$showSetting), trailing: EditButton())
-            .sheet(isPresented: $showSheet, onDismiss: {
-                if self.sheetType == "add" {
-                    self.saveTodoSheet()
-                }
-                self.text = ""
-                self.assignOrder()
+        }
+        .navigationBarTitle(Text(self.subList))
+        .sheet(isPresented: $showSheet, onDismiss: {
+            if self.sheetType == "add" {
+                self.saveTodoSheet()
             }
-            ) {
-                if self.sheetType == "add" {
-                    AddToDo(text: self.$text)
-                } else {
-                    ShowToDo(text: self.$text, toDo: self.$showingToDo)
-                }
+            self.text = ""
+            self.assignOrder()
+        }
+        ) {
+            if self.sheetType == "add" {
+                AddToDo(text: self.$text)
+            } else {
+                ShowToDo(text: self.$text, toDo: self.$showingToDo, subList: self.subList)
             }
-            
         }
         .onAppear {
-            self.db.collection("users/\(userID)/todos")
+            self.db.collection("users/\(userID)/todos/sublists/\(self.subList)")
                 .addSnapshotListener { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")
                     } else {
                         self.todos.removeAll()
                         for document in querySnapshot!.documents {
-                            self.todos.append(ToDo(document.documentID, document.data()))
+                            if document.data().count > 0 {
+                                self.todos.append(ToDo(document.documentID, document.data()))
+                            }
                         }
                         self.todos.sort {
                             if $0.done != $1.done {
@@ -178,6 +177,6 @@ struct ToDoList: View {
 
 struct ToDoList_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoList(showSetting: .constant(false))
+        ToDoList(showSetting: .constant(false), subList: "Main List")
     }
 }

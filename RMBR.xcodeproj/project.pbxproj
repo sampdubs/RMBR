@@ -27,6 +27,8 @@
 		C4C3EBE3231C60AB002E1733 /* Memories.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3EBE2231C60AB002E1733 /* Memories.swift */; };
 		C4C3EBE9231C936F002E1733 /* PhotoCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3EBE8231C936F002E1733 /* PhotoCaptureView.swift */; };
 		C4C3EBEB231C93C0002E1733 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3EBEA231C93C0002E1733 /* ImagePicker.swift */; };
+		C4C76C39244CD34500170583 /* ToDoMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C76C38244CD34500170583 /* ToDoMain.swift */; };
+		C4C76C3B244CDD7C00170583 /* AddToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C76C3A244CDD7C00170583 /* AddToDoList.swift */; };
 		C4DAE874242C4B4000B1643D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4DAE873242C4B4000B1643D /* GoogleService-Info.plist */; };
 		C4E29908232AF7E600CDC04B /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E29906232AF7E600CDC04B /* ToDo.swift */; };
 		C4E2990C232AF91300CDC04B /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E2990B232AF91300CDC04B /* ToDoList.swift */; };
@@ -63,6 +65,8 @@
 		C4C3EBE2231C60AB002E1733 /* Memories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memories.swift; sourceTree = "<group>"; };
 		C4C3EBE8231C936F002E1733 /* PhotoCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureView.swift; sourceTree = "<group>"; };
 		C4C3EBEA231C93C0002E1733 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		C4C76C38244CD34500170583 /* ToDoMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMain.swift; sourceTree = "<group>"; };
+		C4C76C3A244CDD7C00170583 /* AddToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoList.swift; sourceTree = "<group>"; };
 		C4DAE873242C4B4000B1643D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C4E29906232AF7E600CDC04B /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		C4E2990B232AF91300CDC04B /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			children = (
 				C4C3EBE2231C60AB002E1733 /* Memories.swift */,
 				C4348F7C233ABAEF000EF3F2 /* Tasks.swift */,
+				C4C76C38244CD34500170583 /* ToDoMain.swift */,
 				C4E2990B232AF91300CDC04B /* ToDoList.swift */,
 			);
 			path = MainViews;
@@ -111,6 +116,7 @@
 				C4AD2374241FE3A8000A4FD1 /* TaskTimes.swift */,
 				C4348F84233AD821000EF3F2 /* ShowTask.swift */,
 				C4E2990D232B0C3400CDC04B /* AddToDo.swift */,
+				C4C76C3A244CDD7C00170583 /* AddToDoList.swift */,
 				C4FB3E00232FC02100D5C26B /* ShowToDo.swift */,
 				C44CA61B2436593B0096F8D5 /* Settings.swift */,
 			);
@@ -316,6 +322,7 @@
 				C4E2990C232AF91300CDC04B /* ToDoList.swift in Sources */,
 				C4E2990E232B0C3400CDC04B /* AddToDo.swift in Sources */,
 				C4348F88233AD9BC000EF3F2 /* Task.swift in Sources */,
+				C4C76C3B244CDD7C00170583 /* AddToDoList.swift in Sources */,
 				C4348F85233AD821000EF3F2 /* ShowTask.swift in Sources */,
 				C4F63409242D70EA00DA8421 /* MultilineTextField.swift in Sources */,
 				C4C3EB942319FC52002E1733 /* AppDelegate.swift in Sources */,
@@ -326,6 +333,7 @@
 				C4E29908232AF7E600CDC04B /* ToDo.swift in Sources */,
 				C4C3EB9B2319FC52002E1733 /* ContentView.swift in Sources */,
 				C4348F7D233ABAEF000EF3F2 /* Tasks.swift in Sources */,
+				C4C76C39244CD34500170583 /* ToDoMain.swift in Sources */,
 				C44CA61C2436593B0096F8D5 /* Settings.swift in Sources */,
 				C4348F83233AD81A000EF3F2 /* AddTask.swift in Sources */,
 				C479F540231F38DD00870927 /* Helpers.swift in Sources */,
