@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C4318AEA243FBFC0001C14D9 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4318AE9243FBFC0001C14D9 /* iOSDevCenters+GIF.swift */; };
 		C4348F7D233ABAEF000EF3F2 /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4348F7C233ABAEF000EF3F2 /* Tasks.swift */; };
 		C4348F83233AD81A000EF3F2 /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4348F82233AD81A000EF3F2 /* AddTask.swift */; };
 		C4348F85233AD821000EF3F2 /* ShowTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4348F84233AD821000EF3F2 /* ShowTask.swift */; };
@@ -15,7 +14,18 @@
 		C44CA61C2436593B0096F8D5 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CA61B2436593B0096F8D5 /* Settings.swift */; };
 		C479F53E231F38AF00870927 /* ShowMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F53D231F38AF00870927 /* ShowMemory.swift */; };
 		C479F540231F38DD00870927 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F53F231F38DD00870927 /* Helpers.swift */; };
+		C47F5BC624565B9600FB5E83 /* GoogleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47F5BC524565B9600FB5E83 /* GoogleScreen.swift */; };
+		C47F5BCE24566A2300FB5E83 /* EnvironmentWindowKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47F5BC924566A2300FB5E83 /* EnvironmentWindowKey.swift */; };
+		C47F5BCF24566A2300FB5E83 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47F5BCB24566A2300FB5E83 /* SignInWithAppleButton.swift */; };
+		C47F5BD024566A2300FB5E83 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47F5BCA24566A2300FB5E83 /* AuthState.swift */; };
+		C47F5BD124566A2300FB5E83 /* SignInWithAppleDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47F5BCC24566A2300FB5E83 /* SignInWithAppleDelegates.swift */; };
+		C47F5BD224566A2300FB5E83 /* SignInWithAppleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47F5BCD24566A2300FB5E83 /* SignInWithAppleManager.swift */; };
+		C47F5BDB24566BD900FB5E83 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47F5BDA24566BD900FB5E83 /* LoginView.swift */; };
+		C47F5BE224567A0700FB5E83 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47F5BE124567A0700FB5E83 /* ProfileView.swift */; };
+		C4824178245C982000FA497A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4824177245C982000FA497A /* GoogleService-Info.plist */; };
+		C4892685246491970051A791 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4892684246491970051A791 /* SignIn.swift */; };
 		C4AD2375241FE3A8000A4FD1 /* TaskTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD2374241FE3A8000A4FD1 /* TaskTimes.swift */; };
+		C4BE78B62454DBD60006A2D2 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BE78B52454DBD60006A2D2 /* AuthenticationService.swift */; };
 		C4C3EB942319FC52002E1733 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3EB932319FC52002E1733 /* AppDelegate.swift */; };
 		C4C3EB962319FC52002E1733 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3EB952319FC52002E1733 /* SceneDelegate.swift */; };
 		C4C3EB9B2319FC52002E1733 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3EB9A2319FC52002E1733 /* ContentView.swift */; };
@@ -29,7 +39,8 @@
 		C4C3EBEB231C93C0002E1733 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3EBEA231C93C0002E1733 /* ImagePicker.swift */; };
 		C4C76C39244CD34500170583 /* ToDoMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C76C38244CD34500170583 /* ToDoMain.swift */; };
 		C4C76C3B244CDD7C00170583 /* AddToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C76C3A244CDD7C00170583 /* AddToDoList.swift */; };
-		C4DAE874242C4B4000B1643D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4DAE873242C4B4000B1643D /* GoogleService-Info.plist */; };
+		C4D823D324551ACB0085F4FB /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D823D224551ACB0085F4FB /* Login.swift */; };
+		C4D823D524551B480085F4FB /* EmailSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D823D424551B480085F4FB /* EmailSignIn.swift */; };
 		C4E29908232AF7E600CDC04B /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E29906232AF7E600CDC04B /* ToDo.swift */; };
 		C4E2990C232AF91300CDC04B /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E2990B232AF91300CDC04B /* ToDoList.swift */; };
 		C4E2990E232B0C3400CDC04B /* AddToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E2990D232B0C3400CDC04B /* AddToDo.swift */; };
@@ -43,7 +54,6 @@
 		2E49598C423CC414CD8C3C90 /* Pods-RMBR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMBR.release.xcconfig"; path = "Target Support Files/Pods-RMBR/Pods-RMBR.release.xcconfig"; sourceTree = "<group>"; };
 		6DDC2E3D926EECAC4C7E1B59 /* Pods-RMBR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMBR.debug.xcconfig"; path = "Target Support Files/Pods-RMBR/Pods-RMBR.debug.xcconfig"; sourceTree = "<group>"; };
 		C403C2A42367DDD00010C405 /* RMBR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RMBR.entitlements; sourceTree = "<group>"; };
-		C4318AE9243FBFC0001C14D9 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		C4348F7C233ABAEF000EF3F2 /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		C4348F82233AD81A000EF3F2 /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
 		C4348F84233AD821000EF3F2 /* ShowTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTask.swift; sourceTree = "<group>"; };
@@ -51,7 +61,19 @@
 		C44CA61B2436593B0096F8D5 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C479F53D231F38AF00870927 /* ShowMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMemory.swift; sourceTree = "<group>"; };
 		C479F53F231F38DD00870927 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		C47F5BC524565B9600FB5E83 /* GoogleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleScreen.swift; sourceTree = "<group>"; };
+		C47F5BC924566A2300FB5E83 /* EnvironmentWindowKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentWindowKey.swift; sourceTree = "<group>"; };
+		C47F5BCA24566A2300FB5E83 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
+		C47F5BCB24566A2300FB5E83 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
+		C47F5BCC24566A2300FB5E83 /* SignInWithAppleDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleDelegates.swift; sourceTree = "<group>"; };
+		C47F5BCD24566A2300FB5E83 /* SignInWithAppleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleManager.swift; sourceTree = "<group>"; };
+		C47F5BDA24566BD900FB5E83 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C47F5BE124567A0700FB5E83 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C4824177245C982000FA497A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C4892684246491970051A791 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		C4AACAB12454D778000C57DB /* RMBRRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RMBRRelease.entitlements; sourceTree = "<group>"; };
 		C4AD2374241FE3A8000A4FD1 /* TaskTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTimes.swift; sourceTree = "<group>"; };
+		C4BE78B52454DBD60006A2D2 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		C4C3EB902319FC52002E1733 /* RMBR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RMBR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C3EB932319FC52002E1733 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4C3EB952319FC52002E1733 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +89,8 @@
 		C4C3EBEA231C93C0002E1733 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C4C76C38244CD34500170583 /* ToDoMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMain.swift; sourceTree = "<group>"; };
 		C4C76C3A244CDD7C00170583 /* AddToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoList.swift; sourceTree = "<group>"; };
-		C4DAE873242C4B4000B1643D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C4D823D224551ACB0085F4FB /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		C4D823D424551B480085F4FB /* EmailSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignIn.swift; sourceTree = "<group>"; };
 		C4E29906232AF7E600CDC04B /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		C4E2990B232AF91300CDC04B /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
 		C4E2990D232B0C3400CDC04B /* AddToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDo.swift; sourceTree = "<group>"; };
@@ -119,8 +142,27 @@
 				C4C76C3A244CDD7C00170583 /* AddToDoList.swift */,
 				C4FB3E00232FC02100D5C26B /* ShowToDo.swift */,
 				C44CA61B2436593B0096F8D5 /* Settings.swift */,
+				C4892684246491970051A791 /* SignIn.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		C47F5BD324566A3000FB5E83 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				C47F5BDA24566BD900FB5E83 /* LoginView.swift */,
+				C47F5BE124567A0700FB5E83 /* ProfileView.swift */,
+				C47F5BCA24566A2300FB5E83 /* AuthState.swift */,
+				C47F5BC924566A2300FB5E83 /* EnvironmentWindowKey.swift */,
+				C47F5BCB24566A2300FB5E83 /* SignInWithAppleButton.swift */,
+				C47F5BCC24566A2300FB5E83 /* SignInWithAppleDelegates.swift */,
+				C47F5BCD24566A2300FB5E83 /* SignInWithAppleManager.swift */,
+				C4D823D224551ACB0085F4FB /* Login.swift */,
+				C4D823D424551B480085F4FB /* EmailSignIn.swift */,
+				C47F5BC524565B9600FB5E83 /* GoogleScreen.swift */,
+				C4BE78B52454DBD60006A2D2 /* AuthenticationService.swift */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		C4C3EB872319FC52002E1733 = {
@@ -144,6 +186,7 @@
 		C4C3EB922319FC52002E1733 /* RMBR */ = {
 			isa = PBXGroup;
 			children = (
+				C4AACAB12454D778000C57DB /* RMBRRelease.entitlements */,
 				C403C2A42367DDD00010C405 /* RMBR.entitlements */,
 				C4C3EBB32319FF07002E1733 /* MainClasses */,
 				C4C3EB932319FC52002E1733 /* AppDelegate.swift */,
@@ -154,7 +197,7 @@
 				C4C3EBE1231C6078002E1733 /* Extensions */,
 				C4C3EB9C2319FC53002E1733 /* Assets.xcassets */,
 				C4C3EBA12319FC53002E1733 /* LaunchScreen.storyboard */,
-				C4DAE873242C4B4000B1643D /* GoogleService-Info.plist */,
+				C4824177245C982000FA497A /* GoogleService-Info.plist */,
 				C4C3EBA42319FC53002E1733 /* Info.plist */,
 				C4C3EB9E2319FC53002E1733 /* Preview Content */,
 			);
@@ -183,10 +226,10 @@
 			isa = PBXGroup;
 			children = (
 				C479F53F231F38DD00870927 /* Helpers.swift */,
+				C47F5BD324566A3000FB5E83 /* SignIn */,
 				C4C3EBE8231C936F002E1733 /* PhotoCaptureView.swift */,
 				C4C3EBEA231C93C0002E1733 /* ImagePicker.swift */,
 				C4F63408242D70EA00DA8421 /* MultilineTextField.swift */,
-				C4318AE9243FBFC0001C14D9 /* iOSDevCenters+GIF.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -211,6 +254,7 @@
 				C4C3EB8D2319FC52002E1733 /* Frameworks */,
 				C4C3EB8E2319FC52002E1733 /* Resources */,
 				F2C5D04C0FFCFE13072DBBD5 /* [CP] Embed Pods Frameworks */,
+				0FB5E93097A79B3005B762A4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -260,7 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C3EBA32319FC53002E1733 /* LaunchScreen.storyboard in Resources */,
-				C4DAE874242C4B4000B1643D /* GoogleService-Info.plist in Resources */,
+				C4824178245C982000FA497A /* GoogleService-Info.plist in Resources */,
 				C4C3EBA02319FC53002E1733 /* Preview Assets.xcassets in Resources */,
 				C4C3EB9D2319FC53002E1733 /* Assets.xcassets in Resources */,
 			);
@@ -269,6 +313,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0FB5E93097A79B3005B762A4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RMBR/Pods-RMBR-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RMBR/Pods-RMBR-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RMBR/Pods-RMBR-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2B1E3161165D1A6A0DE0D2AD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,27 +377,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4FB3E01232FC02100D5C26B /* ShowToDo.swift in Sources */,
+				C47F5BD124566A2300FB5E83 /* SignInWithAppleDelegates.swift in Sources */,
 				C4C3EBB5231A09C6002E1733 /* AddMemory.swift in Sources */,
 				C479F53E231F38AF00870927 /* ShowMemory.swift in Sources */,
+				C47F5BC624565B9600FB5E83 /* GoogleScreen.swift in Sources */,
 				C4C3EBE3231C60AB002E1733 /* Memories.swift in Sources */,
 				C4E2990C232AF91300CDC04B /* ToDoList.swift in Sources */,
 				C4E2990E232B0C3400CDC04B /* AddToDo.swift in Sources */,
+				C47F5BD224566A2300FB5E83 /* SignInWithAppleManager.swift in Sources */,
+				C47F5BD024566A2300FB5E83 /* AuthState.swift in Sources */,
 				C4348F88233AD9BC000EF3F2 /* Task.swift in Sources */,
 				C4C76C3B244CDD7C00170583 /* AddToDoList.swift in Sources */,
 				C4348F85233AD821000EF3F2 /* ShowTask.swift in Sources */,
+				C4BE78B62454DBD60006A2D2 /* AuthenticationService.swift in Sources */,
+				C47F5BCE24566A2300FB5E83 /* EnvironmentWindowKey.swift in Sources */,
 				C4F63409242D70EA00DA8421 /* MultilineTextField.swift in Sources */,
 				C4C3EB942319FC52002E1733 /* AppDelegate.swift in Sources */,
+				C4D823D524551B480085F4FB /* EmailSignIn.swift in Sources */,
 				C4C3EBE9231C936F002E1733 /* PhotoCaptureView.swift in Sources */,
+				C4892685246491970051A791 /* SignIn.swift in Sources */,
 				C4C3EBB12319FEFF002E1733 /* Memory.swift in Sources */,
 				C4C3EBEB231C93C0002E1733 /* ImagePicker.swift in Sources */,
-				C4318AEA243FBFC0001C14D9 /* iOSDevCenters+GIF.swift in Sources */,
 				C4E29908232AF7E600CDC04B /* ToDo.swift in Sources */,
 				C4C3EB9B2319FC52002E1733 /* ContentView.swift in Sources */,
 				C4348F7D233ABAEF000EF3F2 /* Tasks.swift in Sources */,
 				C4C76C39244CD34500170583 /* ToDoMain.swift in Sources */,
+				C47F5BCF24566A2300FB5E83 /* SignInWithAppleButton.swift in Sources */,
 				C44CA61C2436593B0096F8D5 /* Settings.swift in Sources */,
+				C47F5BE224567A0700FB5E83 /* ProfileView.swift in Sources */,
 				C4348F83233AD81A000EF3F2 /* AddTask.swift in Sources */,
+				C4D823D324551ACB0085F4FB /* Login.swift in Sources */,
 				C479F540231F38DD00870927 /* Helpers.swift in Sources */,
+				C47F5BDB24566BD900FB5E83 /* LoginView.swift in Sources */,
 				C4AD2375241FE3A8000A4FD1 /* TaskTimes.swift in Sources */,
 				C4C3EB962319FC52002E1733 /* SceneDelegate.swift in Sources */,
 			);
@@ -490,6 +562,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2.1;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.congappchallenge.RMBR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -504,7 +577,7 @@
 			baseConfigurationReference = 2E49598C423CC414CD8C3C90 /* Pods-RMBR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = RMBR/RMBR.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RMBR/RMBRRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
@@ -517,6 +590,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2.1;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.congappchallenge.RMBR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -11,6 +11,9 @@ import UIKit
 import CoreData
 import WWCalendarTimeSelector
 import Firebase
+import CryptoKit
+import AuthenticationServices
+import Firebase
 
 extension UITextView {
     @IBInspectable var doneAccessory: Bool {
@@ -58,6 +61,15 @@ struct SettingsButton: View {
     }
 }
 
+class UserID: ObservableObject {
+    @Published var id = "" {
+        willSet {
+            updated = newValue != UIDevice.current.identifierForVendor!.uuidString
+        }
+    }
+    var updated = false
+}
+
 class DatePickerContainer: ObservableObject {
     @Published var picker = DatePicker()
     var date: Date {
@@ -87,13 +99,13 @@ struct DatePicker: UIViewControllerRepresentable {
 }
 
 struct ActivityIndicator: UIViewRepresentable {
-
+    
     let style: UIActivityIndicatorView.Style
-
+    
     func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
         return UIActivityIndicatorView(style: style)
     }
-
+    
     func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
         uiView.startAnimating()
     }

@@ -23,6 +23,9 @@ struct Tasks: View {
     @State private var datePicker: DatePickerContainer = DatePickerContainer()
     @State private var repeats: Int = 0
     @Binding var showSetting: Bool
+    
+    @EnvironmentObject var userID: UserID
+    
     let repeatOptions = ["Never", "Daily", "Weekly", "Monthly", "Yearly"]
     let db = Firestore.firestore()
     
@@ -114,7 +117,7 @@ struct Tasks: View {
             }
             timestamps.append(Timestamp(date: Calendar.current.date(from: dC)!))
         }
-                
+        
         let toSave: [String: Any] = [
             "identifier": uuidStrings,
             "repeats": repeats,
@@ -122,8 +125,8 @@ struct Tasks: View {
             "title": self.title,
             "text": self.text
         ]
-
-        db.collection("users/\(userID)/tasks").addDocument(data: toSave)
+        
+        db.collection("users/\(userID.id)/tasks").addDocument(data: toSave)
     }
     
     var body: some View {
@@ -156,7 +159,7 @@ struct Tasks: View {
                         let toDelete = self.tasks[IndexSet.first!]
                         //                        After deleting the task object, also delete the system notification corresponding to it
                         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: toDelete.identifier.map { $0.uuidString })
-                        self.db.document("users/\(userID)/tasks/\(toDelete.id)").delete() { err in
+                        self.db.document("users/\(self.userID.id)/tasks/\(toDelete.id)").delete() { err in
                             if let err = err {
                                 print("Error removing document: \(err)")
                             }
@@ -167,7 +170,7 @@ struct Tasks: View {
                             let batch = self.db.batch()
                             for task in self.tasks {
                                 if taskPassed(task) {
-                                    let doc = self.db.document("users/\(userID)/tasks/\(task.id)")
+                                    let doc = self.db.document("users/\(self.userID.id)/tasks/\(task.id)")
                                     batch.deleteDocument(doc)
                                 }
                             }
@@ -203,6 +206,7 @@ struct Tasks: View {
                     
                 } else {
                     ShowTask(dates: self.$dates, task: self.$showingTask, title: self.$title, text: self.$text, datePicker: self.$datePicker, repeats: self.$repeats)
+                        .environmentObject(self.userID)
                 }
             }
             .alert(isPresented: self.$showAlert) {
@@ -212,14 +216,14 @@ struct Tasks: View {
                     }
                     if UIApplication.shared.canOpenURL(settingsUrl) {
                         UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        // nothing needs to be done, this means the link opened successfully
+                            // nothing needs to be done, this means the link opened successfully
                         })
-                     }
+                    }
                     })
             }
         }
         .onAppear {
-            self.db.collection("users/\(userID)/tasks")
+            self.db.collection("users/\(self.userID.id)/tasks")
                 .addSnapshotListener { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")

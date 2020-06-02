@@ -17,6 +17,8 @@ struct ShowToDo: View {
     @State private var edit = false
     @State private var update = false
     
+    @EnvironmentObject var userID: UserID
+    
     let db = Firestore.firestore()
     var subList: String
     
@@ -24,7 +26,7 @@ struct ShowToDo: View {
         if (self.text.isEmpty) {
             return
         }
-        db.document("users/\(userID)/todos/\(self.toDo!.id)").setData(["text": self.text], merge: true)
+        db.document("users/\(userID.id)/todos/\(self.toDo!.id)").setData(["text": self.text], merge: true)
         self.toDo!.text = self.text
     }
     
@@ -33,7 +35,7 @@ struct ShowToDo: View {
             VStack {
                 Button (action: {
                     self.toDo!.done.toggle()
-                    self.db.document("users/\(userID)/todos/sublists/\(self.subList)/\(self.toDo!.id)").setData(["done": self.toDo!.done], merge: true)
+                    self.db.document("users/\(self.userID.id)/todos/sublists/\(self.subList)/\(self.toDo!.id)").setData(["done": self.toDo!.done], merge: true)
                     self.update.toggle()
                 }) {
                     Image(systemName: toDo!.done ? "checkmark.square" : "square")

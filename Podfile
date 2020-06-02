@@ -12,8 +12,9 @@ target 'RMBR' do
   pod 'Google-Mobile-Ads-SDK'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
-  pod 'Firebase/Analytics'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'Firebase/Functions'
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
 end

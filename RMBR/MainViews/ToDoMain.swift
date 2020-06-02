@@ -24,6 +24,8 @@ struct ToDoMain: View {
     @State var update = true
     @Binding var showSetting: Bool
     
+    @EnvironmentObject var userID: UserID
+    
     let db = Firestore.firestore()
     let functions = Functions.functions(region: "us-east1")
     
@@ -36,7 +38,7 @@ struct ToDoMain: View {
             self.alertMessage = 1
         }
         if (self.replacing.count > 0) {
-            self.functions.httpsCallable("renameCollection").call(["path": "users/\(userID)/todos/sublists/\(self.replacing)", "name": "self.text"]) { (result, err) in
+            self.functions.httpsCallable("renameCollection").call(["path": "users/\(userID.id)/todos/sublists/\(self.replacing)", "name": "self.text"]) { (result, err) in
                 if let err = err {
                     print("error renaming subcollection: \(err)")
                 } else {
@@ -44,7 +46,7 @@ struct ToDoMain: View {
                 }
             }
         } else {
-            db.collection("users/\(userID)/todos/sublists/\(self.text)").addDocument(data: [String:Any]()) { (err) in
+            db.collection("users/\(userID.id)/todos/sublists/\(self.text)").addDocument(data: [String:Any]()) { (err) in
                 if let err = err {
                     print("error initializing sublist: \(err)")
                 }
@@ -58,7 +60,7 @@ struct ToDoMain: View {
     
     fileprivate func deleteList(_ list: String) {
         lists.remove(list)
-        self.functions.httpsCallable("deleteCollection").call(["path": "users/\(userID)/todos/sublists/\(list)"]) { (result, err) in
+        self.functions.httpsCallable("deleteCollection").call(["path": "users/\(userID.id)/todos/sublists/\(list)"]) { (result, err) in
             if let err = err {
                 print("error getting subcollections: \(err)")
             } else {
@@ -133,7 +135,7 @@ struct ToDoMain: View {
         }
         .onAppear {
             self.lists = Set(UserDefaults.standard.stringArray(forKey: "todoLists")!)
-            self.functions.httpsCallable("getSubCollections").call(["path": "users/\(userID)/todos/sublists"]) { (result, err) in
+            self.functions.httpsCallable("getSubCollections").call(["path": "users/\(self.userID.id)/todos/sublists"]) { (result, err) in
                 if let err = err {
                     print("error getting subcollections: \(err)")
                 } else if let cols = (result?.data as? [String:Any])?["collections"] as? [String] {

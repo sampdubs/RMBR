@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+// import { user } from 'firebase-functions/lib/providers/auth';
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -73,4 +74,16 @@ export const renameCollection = functions.region("us-east1").https.onCall(async 
         });
 
 
+});
+
+export const deleteUser = functions.region("us-east1").https.onCall(async (data, context) => {
+    const colPath = data.path;
+
+    const client = require('firebase-tools');
+    return await client.firestore
+        .delete(colPath, {
+            project: process.env.GCLOUD_PROJECT,
+            recursive: true,
+            yes: true
+        }); 
 });

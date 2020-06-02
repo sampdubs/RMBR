@@ -17,6 +17,9 @@ struct ShowTask: View {
     @Binding var datePicker: DatePickerContainer
     @Binding var repeats: Int
     @State private var edit = false
+    
+    @EnvironmentObject var userID: UserID
+    
     let repeatOptions = ["Never", "Daily", "Weekly", "Monthly", "Yearly"]
     let db = Firestore.firestore()
     
@@ -88,7 +91,7 @@ struct ShowTask: View {
             "text": self.text
         ]
 
-        db.document("users/\(userID)/tasks/\(self.task!.id)").setData(toSave)
+        db.document("users/\(userID.id)/tasks/\(self.task!.id)").setData(toSave)
     }
     
     var body: some View {

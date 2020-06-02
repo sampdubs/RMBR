@@ -20,6 +20,8 @@ public struct ShowMemory: View {
     @State private var edit = false
     @State private var update = false
     
+    @EnvironmentObject var userID: UserID
+    
     let db = Firestore.firestore()
     let storage = Storage.storage()
     
@@ -43,7 +45,7 @@ public struct ShowMemory: View {
     }
     
     fileprivate func addImageLinks(_ urls: [String], _ memID: String) {
-        let docRef = db.document("users/\(userID)/memories/\(memID)")
+        let docRef = db.document("users/\(userID.id)/memories/\(memID)")
         var currentIms: [String] = []
         docRef.getDocument { (document, err) in
             if let document = document, document.exists {
@@ -83,7 +85,7 @@ public struct ShowMemory: View {
             "attachments": imArray
         ]
         
-        db.document("users/\(userID)/memories/\(self.memory!.id)").setData(toSave)
+        db.document("users/\(userID.id)/memories/\(self.memory!.id)").setData(toSave)
         self.saveImages(self.images, self.memory!.id)
     }
     

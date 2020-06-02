@@ -19,6 +19,9 @@ struct ToDoList: View {
     @State private var text: String = ""
     @State var update = true
     @Binding var showSetting: Bool
+    
+    @EnvironmentObject var userID: UserID
+    
     var subList: String
     
     let db = Firestore.firestore()
@@ -34,13 +37,13 @@ struct ToDoList: View {
             "done": false
         ]
         
-        db.collection("users/\(userID)/todos/sublists/\(self.subList)").addDocument(data: toSave)
+        db.collection("users/\(userID.id)/todos/sublists/\(self.subList)").addDocument(data: toSave)
     }
     
     fileprivate func assignOrder() {
         let batch = db.batch()
         for i in 0..<self.todos.count {
-            let ref = db.document("users/\(userID)/todos/sublists/\(self.subList)/\(self.todos[i].id)")
+            let ref = db.document("users/\(userID.id)/todos/sublists/\(self.subList)/\(self.todos[i].id)")
             batch.updateData(["order": i], forDocument: ref)
         }
         batch.commit() { err in
@@ -83,7 +86,7 @@ struct ToDoList: View {
                             .frame(width: 32, height: 32)
                             .foregroundColor(todo.done ? .green : self.colorScheme == .light ? .black : .white)
                             .gesture(TapGesture().onEnded(){
-                                self.db.document("users/\(userID)/todos/sublists/\(self.subList)/\(todo.id)").setData(["done": !todo.done], merge: true)
+                                self.db.document("users/\(self.userID.id)/todos/sublists/\(self.subList)/\(todo.id)").setData(["done": !todo.done], merge: true)
                                 self.update.toggle()
                                 self.showSheet = false
                             })
@@ -102,7 +105,7 @@ struct ToDoList: View {
                 }
                 .onDelete { IndexSet in
                     guard 0 < self.todos.count else { return }
-                    self.db.document("users/\(userID)/todos/sublists/\(self.subList)/\(self.todos[IndexSet.first!].id)").delete() { err in
+                    self.db.document("users/\(self.userID.id)/todos/sublists/\(self.subList)/\(self.todos[IndexSet.first!].id)").delete() { err in
                         if let err = err {
                             print("Error removing document: \(err)")
                         }
@@ -115,7 +118,7 @@ struct ToDoList: View {
                         let batch = self.db.batch()
                         for todo in self.todos {
                             if todo.done {
-                                let doc = self.db.document("users/\(userID)/todos/sublists/\(self.subList)/\(todo.id)")
+                                let doc = self.db.document("users/\(self.userID.id)/todos/sublists/\(self.subList)/\(todo.id)")
                                 batch.deleteDocument(doc)
                             }
                         }
@@ -147,10 +150,11 @@ struct ToDoList: View {
                 AddToDo(text: self.$text)
             } else {
                 ShowToDo(text: self.$text, toDo: self.$showingToDo, subList: self.subList)
+                    .environmentObject(self.userID)
             }
         }
         .onAppear {
-            self.db.collection("users/\(userID)/todos/sublists/\(self.subList)")
+            self.db.collection("users/\(self.userID.id)/todos/sublists/\(self.subList)")
                 .addSnapshotListener { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")

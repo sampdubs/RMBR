@@ -21,6 +21,8 @@ struct Memories: View {
     @State private var title: String = ""
     @State private var text: String = ""
     @Binding var showSetting: Bool
+    
+    @EnvironmentObject var userID: UserID
 
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -76,7 +78,7 @@ struct Memories: View {
     }
     
     fileprivate func addImageLinks(_ urls: [String], _ memID: String) {
-        let docRef = db.document("users/\(userID)/memories/\(memID)")
+        let docRef = db.document("users/\(userID.id)/memories/\(memID)")
         var currentIms: [String] = []
         docRef.getDocument { (document, err) in
             if let document = document, document.exists {
@@ -113,7 +115,7 @@ struct Memories: View {
             "attachments": imArray
         ]
 
-        let docRef = db.collection("users/\(userID)/memories").addDocument(data: toSave)
+        let docRef = db.collection("users/\(userID.id)/memories").addDocument(data: toSave)
         self.saveImages(self.images, docRef.documentID)
     }
 
@@ -144,7 +146,7 @@ struct Memories: View {
                     }.onDelete { IndexSet in
                         //                        make sure there are more than 0 memories
                         guard 0 < self.memories.count else { return }
-                        let docRef = self.db.document("users/\(userID)/memories/\(self.memories[IndexSet.first!].id)")
+                        let docRef = self.db.document("users/\(self.userID.id)/memories/\(self.memories[IndexSet.first!].id)")
                         var imageIDs: [String] = []
                         docRef.getDocument { (document, err) in
                             if let document = document, document.exists {
@@ -191,12 +193,12 @@ struct Memories: View {
                         AddMemory(title: self.$title, text: self.$text, images: self.$images)
 
                     } else {
-                        ShowMemory(memory: self.$showingMemory, title: self.$title, text: self.$text, images: self.$images)
+                        ShowMemory(memory: self.$showingMemory, title: self.$title, text: self.$text, images: self.$images).environmentObject(self.userID)
                     }
             }
         }
         .onAppear {
-            self.db.collection("users/\(userID)/memories")
+            self.db.collection("users/\(self.userID.id)/memories")
                 .addSnapshotListener { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")
@@ -219,4 +221,3 @@ struct memories_Previews: PreviewProvider {
         Memories(showSetting: .constant(false))
     }
 }
-
