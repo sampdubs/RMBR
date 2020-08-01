@@ -11,7 +11,7 @@ import AuthenticationServices
 
 struct LoginView: View {
     @EnvironmentObject var signInWithAppleManager: SignInWithAppleManager
-    @Environment(\.window) var window: UIWindow
+    @Environment(\.window) var window: UIWindow?
     
     @State private var signInWithAppleDelegates: SignInWithAppleDelegates! = nil
     

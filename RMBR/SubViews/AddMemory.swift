@@ -24,6 +24,9 @@ struct AddMemory: View {
                 .multilineTextAlignment(.leading)
             TextField("Title", text: $title)
                 .font(Font.system(size: 30, design: .default))
+                .onTapGesture {
+                    print("tapped")
+                }
             Text("Body:")
             TextView(text: $text)
             .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(red: 0.8, green: 0.8, blue: 0.8)))

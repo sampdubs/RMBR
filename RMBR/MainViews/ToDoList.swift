@@ -133,9 +133,9 @@ struct ToDoList: View {
                             .foregroundColor(.red)
                     }
                 }
-                Text(self.update ? "YES" : "NO")
-                    .hidden()
             }
+            Text(self.update ? "YES" : "NO")
+                .hidden()
         }
         .navigationBarTitle(Text(self.subList))
         .sheet(isPresented: $showSheet, onDismiss: {

@@ -290,8 +290,8 @@ struct AdBanner : UIViewRepresentable {
         // test: ca-app-pub-3940256099942544/6300978111
         
         let banner = GADBannerView(adSize: kGADAdSizeBanner)
-        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111"      // test
-        //        banner.adUnitID = "ca-app-pub-9472819037436786/3598098269"    // real
+//        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111"      // test
+        banner.adUnitID = "ca-app-pub-9472819037436786/3598098269"    // real
         banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
         banner.load(GADRequest())
         return banner
@@ -300,4 +300,21 @@ struct AdBanner : UIViewRepresentable {
     func updateUIView(_ uiView: GADBannerView, context: UIViewRepresentableContext<AdBanner>) {
         
     }
+}
+
+func showLoginAlert() {
+    let alertController = UIAlertController(title: "Verify Identitiy", message: "Please login again with the account you are trying to delete to verify your identity", preferredStyle: .alert)
+    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in
+        let viewController = UIHostingController(rootView: MiniSignIn().environmentObject(globalUID))
+        SessionStore().signOut()
+        UIApplication.shared.windows.first?.rootViewController!.present(viewController, animated: true, completion: nil)
+    }))
+    UIApplication.shared.windows.first?.rootViewController!.present(alertController, animated: true, completion: nil)
+}
+
+func isValidEmail(_ email: String) -> Bool {
+    let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+    let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+    return emailPred.evaluate(with: email)
 }

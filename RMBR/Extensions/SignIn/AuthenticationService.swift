@@ -22,7 +22,7 @@ class SessionStore: ObservableObject {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
                 // if we have a user, create a new user model
-//                print("Got user: \(user). uid: \(user.uid)")
+                //                print("Got user: \(user). uid: \(user.uid)")
                 self.session = User(
                     uid: user.uid,
                     displayName: user.displayName,
@@ -41,42 +41,42 @@ class SessionStore: ObservableObject {
         handler: @escaping AuthDataResultCallback
     ) {
         Auth.auth().createUser(withEmail: email, password: password, completion: handler)
-        }
-        
-        func signIn(
-            email: String,
-            password: String,
-            handler: @escaping AuthDataResultCallback
-        ) {
-            Auth.auth().signIn(withEmail: email, password: password, completion: handler)
-        }
-        
-        func signOut () -> Bool {
-            do {
-                try Auth.auth().signOut()
-                self.session = nil
-                return true
-            } catch {
-                return false
-            }
-        }
-        
-        func unbind () {
-            if let handle = handle {
-                Auth.auth().removeStateDidChangeListener(handle)
-            }
+    }
+    
+    func signIn(
+        email: String,
+        password: String,
+        handler: @escaping AuthDataResultCallback
+    ) {
+        Auth.auth().signIn(withEmail: email, password: password, completion: handler)
+    }
+    
+    @discardableResult func signOut () -> Bool {
+        do {
+            try Auth.auth().signOut()
+            self.session = nil
+            return true
+        } catch {
+            return false
         }
     }
     
-    class User {
-        var uid: String
-        var email: String?
-        var displayName: String?
-        
-        init(uid: String, displayName: String?, email: String?) {
-            self.uid = uid
-            self.email = email
-            self.displayName = displayName
+    func unbind () {
+        if let handle = handle {
+            Auth.auth().removeStateDidChangeListener(handle)
         }
-        
+    }
+}
+
+class User {
+    var uid: String
+    var email: String?
+    var displayName: String?
+    
+    init(uid: String, displayName: String?, email: String?) {
+        self.uid = uid
+        self.email = email
+        self.displayName = displayName
+    }
+    
 }

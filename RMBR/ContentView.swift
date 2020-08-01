@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 
 struct ContentView: View {
-    @State private var showSetting = true
+    @State private var showSetting = false
     @State private var selection = 0
     @EnvironmentObject var userID: UserID
     

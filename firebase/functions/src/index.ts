@@ -19,7 +19,7 @@ export const getSubCollections = functions.region("us-east1").https.onCall(async
 export const deleteCollection = functions.region("us-east1").https.onCall(async (data, context) => {
     const colPath = data.path;
 
-    const collectionRef = await db.collection(colPath)
+    const collectionRef = await db.collection(colPath);
     const promises: any[] = [];
 
     return collectionRef.get()
@@ -77,13 +77,38 @@ export const renameCollection = functions.region("us-east1").https.onCall(async 
 });
 
 export const deleteUser = functions.region("us-east1").https.onCall(async (data, context) => {
-    const colPath = data.path;
+    const userPath = data.path;
 
     const client = require('firebase-tools');
     return await client.firestore
-        .delete(colPath, {
+        .delete(userPath, {
             project: process.env.GCLOUD_PROJECT,
             recursive: true,
-            yes: true
+            yes: true,
+            token: "1//01PRUx4NdaxEbCgYIARAAGAESNwF-L9IrPT13mBqEPUYTQYCeXVF_WYwtb4OfF9bN7ULszAfRkt_EpihRQe3hxh86KiIOEKE1jqI"
+            // token: functions.config().fb.token
         }); 
+
+
+    // const functions = require("firebase-functions");
+
+    // for (let col of await db.doc(userPath).listCollections()) {
+    //     const promises: any[] = [];
+
+    //     col.get()
+    //     .then(async snapshot => {
+    //         snapshot.forEach(docSnapshot => {
+    //             require("firebase-functions").logger.log("docSnapshot:", docSnapshot)
+    //             promises.push(docSnapshot.ref.delete());
+    //         });
+
+    //         await Promise.all(promises);
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //         return false;
+    //     });
+    // }
+
+    
 });

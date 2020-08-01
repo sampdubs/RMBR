@@ -110,9 +110,9 @@ struct ToDoMain: View {
                         self.alertMessage = 2
                         self.showAlert = true
                     }
-                    Text(self.update ? "YES" : "NO")
-                        .hidden()
                 }
+                Text(self.update ? "YES" : "NO")
+                    .hidden()
             }
             .navigationBarTitle("To Do Lists")
             .navigationBarItems(leading: SettingsButton(showSetting: self.$showSetting), trailing: EditButton())
@@ -152,5 +152,6 @@ struct ToDoMain: View {
 struct ToDoMain_Previews: PreviewProvider {
     static var previews: some View {
         ToDoMain(showSetting: .constant(false))
+            .environmentObject(UserID())
     }
 }

@@ -26,6 +26,8 @@ struct Settings: View {
         return ""
     }
     
+    
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -104,31 +106,50 @@ struct Settings: View {
                 if (alertType == 0 ) {
                     return Alert(title: Text("You are signed out."), message: Text("If you sign in again, all of your data will still be there. Any changes that you make now will be stored only on this phone."))
                 } else {
-                    return Alert(
-                        title: Text("Are you sure"),
-                        message: Text("If you click delete, all of your data will be permenantly deleted. Only click delete if you are sure. Perhaps look back at your data to make sure you want to delete it."),
-                        primaryButton: .default(Text("Cancel")),
-                        secondaryButton: .destructive(Text("Delete"), action: {
-                            let previousID = self.userID.id
-                            self.userID.id = UIDevice.current.identifierForVendor!.uuidString
-                            UserDefaults.standard.set(self.userID.id, forKey: "userID")
-                            self.functions.httpsCallable("deleteUser").call(["path": "users/\(self.userID.id)"]) { (result, err) in
-                                if let err = err {
-                                    print("error deleting account: \(err)")
-                                } else {
-                                    if (Auth.auth().currentUser!.uid == previousID) {
-                                        Auth.auth().currentUser?.delete() { err in
-                                            if let err = err {
-                                                print("Error deleting user: ", err)
-                                            } else {
-                                                print("Deleted user")
-                                            }
+                    if (Auth.auth().currentUser!.uid == self.userID.id) {
+                        return Alert(
+                            title: Text("Verify Identitiy"),
+                            message: Text("Please login again with the account you are trying to delete to verify your identity"),
+                            primaryButton: .default(Text("Cancel")),
+                            secondaryButton: .default(
+                                Text("OK"),
+                                action: {
+                                    let viewController = UIHostingController(rootView: MiniSignIn().environmentObject(globalUID))
+                                    SessionStore().signOut()
+                                    UIApplication.shared.windows.first?.rootViewController!.present(viewController, animated: true, completion: nil)
+                                    
+                                }
+                            )
+                        )
+                    } else {
+                        return Alert(
+                            title: Text("Are you sure"),
+                            message: Text("If you click delete, all of your data will be permenantly deleted. Only click delete if you are sure. Perhaps look back at your data to make sure you want to delete it."),
+                            primaryButton: .default(Text("Cancel")),
+                            secondaryButton: .destructive(Text("Delete"), action: {
+                                let previousID = self.userID.id
+                                self.userID.id = UIDevice.current.identifierForVendor!.uuidString
+                                UserDefaults.standard.set(self.userID.id, forKey: "userID")
+                                self.functions.httpsCallable("deleteUser").call(["path": "users/\(self.userID.id)"]) { (result, err) in
+                                    if let err = err {
+                                        print("error deleting account data : \(err)")
+                                    } else {
+                                        print(Auth.auth().currentUser!.uid, previousID)
+                                        if (Auth.auth().currentUser!.uid == previousID) {
+//                                            showLoginAlert()
+                                                                                    Auth.auth().currentUser?.delete() { err in
+                                                                                        if let err = err {
+                                                                                            print("Error deleting user: ", err)
+                                                                                        } else {
+                                                                                            print("Deleted user")
+                                                                                        }
+                                                                                    }
                                         }
                                     }
                                 }
                             }
-                        }
-                        ))
+                            ))
+                    }
                 }
             }
         }

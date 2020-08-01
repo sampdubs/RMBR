@@ -11,12 +11,13 @@ import SwiftUI
 struct Login: View {
     @State private var session: SessionStore = SessionStore()
     @State private var loggedIn = false
-    
+    @Binding var alertType: Int
+
     @EnvironmentObject var userID: UserID
     
     var body: some View {
         VStack {
-            EmailSignIn(loggedIn: $loggedIn, session: $session)
+            EmailSignIn(loggedIn: $loggedIn, session: $session, alertType: $alertType)
                 .onAppear(perform: session.listen)
                 .environmentObject(userID)
         }
@@ -25,6 +26,6 @@ struct Login: View {
 
 struct Login_Previews: PreviewProvider {
     static var previews: some View {
-        Login()
+        Login(alertType: .constant(0))
     }
 }
