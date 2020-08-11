@@ -105,7 +105,9 @@ public struct ShowMemory: View {
     public var body: some View {
         NavigationView {
             VStack {
-                Text(self.memory!.text)
+                ScrollView(.vertical) {
+                    Text(self.memory!.text)
+                }
                 List {
                     ForEach(self.memory!.attachments, id: \.self) { pic in
                         self.imageElement(pic)

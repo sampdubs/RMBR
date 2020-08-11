@@ -43,7 +43,9 @@ struct ShowToDo: View {
                         .frame(width: 128, height: 128)
                         .foregroundColor(toDo!.done ? .green : self.colorScheme == .light ? .black : .white)
                 }
-                Text(self.toDo!.text)
+                ScrollView(.vertical) {
+                    Text(self.toDo!.text)
+                }
                 Text(self.update ? "YES" : "NO")
                     .hidden()
             }
